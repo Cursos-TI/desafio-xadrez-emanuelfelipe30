@@ -1,47 +1,63 @@
 #include <stdio.h>
 
-int main() {
-    // Movimento da Torre (5 casas para a direita) usando 'for'
-    printf("Movimento da Torre:\n");
-    for (int i = 0; i < 5; i++) {
-        printf("Direita\n");
-    }
-    
-    printf("\n");
-    
-    // Movimento do Bispo (5 casas na diagonal para cima e à direita) usando 'while'
-    printf("Movimento do Bispo:\n");
-    int j = 0;
-    while (j < 5) {
+// Função recursiva para movimentar a Torre (5 casas para a direita)
+void moverTorre(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
+
+// Função recursiva para movimentar a Rainha (8 casas para a esquerda)
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
+// Função recursiva combinada com loops aninhados para movimentar o Bispo (5 casas na diagonal para cima e à direita)
+void moverBispo(int vertical, int horizontal) {
+    if (vertical == 0) return;
+    for (int i = 0; i < horizontal; i++) {
         printf("Cima, Direita\n");
-        j++;
     }
+    moverBispo(vertical - 1, horizontal);
+}
+
+int main() {
+    // Movimento da Torre
+    printf("Movimento da Torre:\n");
+    moverTorre(5);
     
     printf("\n");
     
-    // Movimento da Rainha (8 casas para a esquerda) usando 'do-while'
+    // Movimento do Bispo
+    printf("Movimento do Bispo:\n");
+    moverBispo(5, 1);
+    
+    printf("\n");
+    
+    // Movimento da Rainha
     printf("Movimento da Rainha:\n");
-    int k = 0;
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while (k < 8);
+    moverRainha(8);
     
     printf("\n");
     
-    // Movimento do Cavalo (2 casas para baixo e 1 para a esquerda) usando loops aninhados
+    // Movimento do Cavalo (2 casas para cima e 1 para a direita) usando loops aninhados
     printf("Movimento do Cavalo:\n");
     
-    // Primeiro loop for para mover duas casas para baixo
-    for (int m = 0; m < 2; m++) {
-        printf("Baixo\n");
-    }
-    
-    // Segundo loop while para mover uma casa para a esquerda
-    int n = 0;
-    while (n < 1) {
-        printf("Esquerda\n");
-        n++;
+    int movimentos = 0;
+    for (int i = 0; i < 3; i++) {
+        if (i < 2) {
+            printf("Cima\n");
+            movimentos++;
+            continue;
+        }
+        
+        for (int j = 0; j < 1; j++) {
+            printf("Direita\n");
+            movimentos++;
+            break;
+        }
     }
     
     return 0;
